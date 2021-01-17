@@ -8,7 +8,7 @@ require("chai")
     .use(require('chai-bignumber')(BigNumber))
     .should()
 
-const WBTC = artifacts.require("./token/WBTC.sol")
+const WBTC = artifacts.require("./token/WHNS.sol")
 const Members = artifacts.require("./factory/Members.sol")
 const Controller = artifacts.require("./controller/Controller.sol")
 const Factory = artifacts.require("./factory/Factory.sol")
@@ -36,7 +36,7 @@ contract('Factory', function(accounts) {
     const merchant1 = accounts[5];
     const merchant2 = accounts[6];
 
-    const custodianDepositAddressForMerchant0 = "1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY" 
+    const custodianDepositAddressForMerchant0 = "1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY"
     const custodianDepositAddressForMerchant1 = "1CK6KHY6MHgYvmRQ4PAafKYDrg1ejbH1cE"
     const custodianDepositAddressForMerchant2 = "1LCgURAohwmQas667XmMT8VeEdPSu9ThpC"
     const merchant0DepositAddress = "33186S4aTEmv67cAygmzL9CWzoMNV7RNCn"
@@ -66,7 +66,7 @@ contract('Factory', function(accounts) {
 
         await factory.setMerchantDepositAddress(merchant0DepositAddress, {from: merchant0});
         await factory.setMerchantDepositAddress(merchant1DepositAddress, {from: merchant1});
-        
+
         await factory.setCustodianDepositAddress(merchant0, custodianDepositAddressForMerchant0, {from: custodian0});
         await factory.setCustodianDepositAddress(merchant1, custodianDepositAddressForMerchant1, {from: custodian0});
         await factory.setCustodianDepositAddress(merchant2, custodianDepositAddressForMerchant2, {from: custodian0});
@@ -333,7 +333,7 @@ contract('Factory', function(accounts) {
                 "sender not a merchant"
             );
         });
-        
+
         it("addMintRequest reverts", async function () {
             await expectThrow(
                 factory.addMintRequest(amount, txid0, custodianDepositAddressForMerchant0, {from}),
@@ -401,7 +401,7 @@ contract('Factory', function(accounts) {
             const balanceAfter = await wbtc.balanceOf(merchant0)
             assert.equal(balanceAfter, amount);
         });
-        
+
         it("confirmMintRequest with non exsting request hash", async function () {
             const tx = await factory.addMintRequest(amount, txid0, custodianDepositAddressForMerchant0, {from: merchant0});
             await expectThrow(
@@ -442,10 +442,10 @@ contract('Factory', function(accounts) {
             const tx1 = await factory.addMintRequest(amount, txid1, custodianDepositAddressForMerchant0, {from: merchant0});
             const tx2 =await factory.addMintRequest(amount, txid2, custodianDepositAddressForMerchant0, {from: merchant0});
 
-            assert.notEqual(tx0.logs[0].args.requestHash,tx1.logs[0].args.requestHash); 
+            assert.notEqual(tx0.logs[0].args.requestHash,tx1.logs[0].args.requestHash);
             assert.notEqual(tx1.logs[0].args.requestHash,tx2.logs[0].args.requestHash);
             assert.notEqual(tx0.logs[0].args.requestHash,tx2.logs[0].args.requestHash);
-            
+
             const balanceBefore = await wbtc.balanceOf(merchant0)
             assert.equal(balanceBefore, 0);
 
@@ -593,7 +593,7 @@ contract('Factory', function(accounts) {
             const tx1 = await factory.burn(amount / 4 , {from: merchant0});
             const tx2 = await factory.burn(amount / 4 , {from: merchant0});
             const tx3 = await factory.burn(amount / 4 , {from: merchant0});
-            
+
             await factory.confirmBurnRequest(tx2.logs[0].args.requestHash, txid0, {from});
 
             const request0 = await factory.getBurnRequest(0);
@@ -642,7 +642,7 @@ contract('Factory', function(accounts) {
     describe('as non custodian', function () {
         const from = other;
         const amount = 100;
-        
+
         it("setCustodianDepositAddress reverts", async function () {
             await expectThrow(
                 factory.setCustodianDepositAddress(merchant0, custodianDepositAddressForMerchant0, {from: other}),
@@ -683,7 +683,7 @@ contract('Factory', function(accounts) {
         it("getMintRequestsLength", async function () {
             const lengthBefore = await factory.getMintRequestsLength();
             assert.equal(lengthBefore, 0);
-            
+
             await factory.addMintRequest(amount, txid0, custodianDepositAddressForMerchant0, {from});
             await factory.addMintRequest(amount, txid0, custodianDepositAddressForMerchant0, {from});
             await factory.addMintRequest(amount, txid0, custodianDepositAddressForMerchant0, {from});
@@ -713,7 +713,7 @@ contract('Factory', function(accounts) {
         it("getMintRequests with invalid nonce", async function () {
             const lengthBefore = await factory.getMintRequestsLength();
             assert.equal(lengthBefore, 0);
-            
+
             await factory.addMintRequest(amount, txid0, custodianDepositAddressForMerchant0, {from});
             await factory.addMintRequest(amount, txid0, custodianDepositAddressForMerchant0, {from});
             await factory.addMintRequest(amount, txid0, custodianDepositAddressForMerchant0, {from});

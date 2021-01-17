@@ -9,4 +9,4 @@ const { inputFile, gasPriceGwei, rpcUrl, dontSendTx } = require('yargs')
   .argv;
 
 const deployer = require("./deployerImplementation.js");
-deployer.deploy(inputFile, gasPriceGwei, rpcUrl, dontSendTx);
+deployer.deploy(inputFile, gasPriceGwei, rpcUrl, dontSendTx, 'WHNS');

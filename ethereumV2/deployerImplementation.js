@@ -238,13 +238,13 @@ module.exports.deploy = async function (inputFile, gasPriceGwei, rpcUrl, dontSen
 
         nonce = await web3.eth.getTransactionCount(accountCustodianAddress);
         console.log("accountCustodianAddress nonce: " + nonce);
-        let custodianDepositAddress = "1JPhiNBhZzBgWwjG6zaDchmXZyTyUN5Qny";
+        let custodianDepositAddress = "rs1q9h7d6328n4cp9r97nk270nf04wtcwglmvd06tuqc3e0nqt6txpqqtwc6qk";
         console.log("factoryContract.methods.setCustodianDepositAddress: " + accountMerchantAddress + ", " + custodianDepositAddress);
         await sendTx(factoryContract.methods.setCustodianDepositAddress(accountMerchantAddress, custodianDepositAddress), accountCustodian);
 
         nonce = await web3.eth.getTransactionCount(accountMerchantAddress);
         console.log("accountMerchantAddress nonce: " + nonce);
-        let merchantDepositAddress = "1E57B5SCkGVhFxDugko3quHxamPgkS8NxJ";
+        let merchantDepositAddress = "rs1qd79fvp0qztnugcalf8au2xu79qqgpur4vpdgvjw7ps7dnn542e7q8zhv29";
         console.log("factoryContract.methods.setMerchantDepositAddress: " + merchantDepositAddress);
         await sendTx(factoryContract.methods.setMerchantDepositAddress(merchantDepositAddress), accountMerchant);
 

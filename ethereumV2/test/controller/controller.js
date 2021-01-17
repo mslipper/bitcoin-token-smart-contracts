@@ -1,7 +1,7 @@
 const { ZEPPELIN_LOCATION } = require("../helper.js");
 const { expectThrow } = require(ZEPPELIN_LOCATION + 'openzeppelin-solidity/test/helpers/expectThrow');
 
-const WBTC = artifacts.require("./token/WBTC.sol")
+const WBTC = artifacts.require("./token/WHNS.sol")
 const Members = artifacts.require("./factory/Members.sol")
 const Controller = artifacts.require("./controller/Controller.sol")
 const BasicTokenMock = artifacts.require('BasicTokenMock');
